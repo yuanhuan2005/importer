@@ -132,10 +132,11 @@ public class ImportWPData
 		String productZhTWName = "";
 		String productEnUSName = "";
 		String productPrice = "";
+		String thumbnailIdStr = "";
 
 		// TODO begin 需要根据实际情况修改这两个数字
-		int postId = 122;
-		int thumbnailId = 73;
+		int nextPostId = 122;
+		int defaultThumbnailId = 73;
 		// TODO end
 
 		FileWriter fw = new FileWriter(outputPath, true);
@@ -162,19 +163,23 @@ public class ImportWPData
 			productPrice = contentSplit[4];
 			try
 			{
-				thumbnailId = Integer.valueOf(contentSplit[5]);
+				thumbnailIdStr = contentSplit[5];
+				if (StringUtils.isNotEmpty(thumbnailIdStr))
+				{
+					defaultThumbnailId = Integer.valueOf(thumbnailIdStr);
+				}
 			}
 			catch (Exception e)
 			{
 			}
 			List<String> itemStringList = ImportWPData.genItemStringList(productCategory, productZhCNName,
-			        productZhTWName, productEnUSName, productPrice, postId, thumbnailId);
+			        productZhTWName, productEnUSName, productPrice, nextPostId, defaultThumbnailId);
 			for (String itemString : itemStringList)
 			{
 				pw.println(itemString);
 				System.out.println(itemString);
 			}
-			postId++;
+			nextPostId++;
 		}
 
 		pw.close();
