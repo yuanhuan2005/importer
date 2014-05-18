@@ -21,22 +21,26 @@ public class ImportWPData
 	{
 		List<String> itemStringList = new ArrayList<String>();
 		itemStringList.add("	<item>");
-		itemStringList.add("		<title>" + productEnUSName + "</title>");
+		itemStringList.add("		<title>[:en]" + productEnUSName + "[:zh]" + productZhCNName + "[:tw]" + productZhTWName
+		        + "</title>");
 		itemStringList.add("		<link>http://127.0.0.1/guandong/product/"
 		        + productEnUSName.toLowerCase().replaceAll(" ", "_") + "/</link>");
 		itemStringList.add("		<pubDate>Sat, 17 May 2014 12:57:20 +0000</pubDate>");
 		itemStringList.add("        <dc:creator><![CDATA[admin]]></dc:creator>");
 		itemStringList.add("		<guid isPermaLink=\"false\">http://127.0.0.1/guandong/?post_type=product&#038;p="
 		        + postId + "</guid>");
-		itemStringList.add("		<description>" + productZhCNName + "/" + productZhTWName + "</description>");
-		itemStringList.add("		<content:encoded><![CDATA[" + productEnUSName + "]]></content:encoded>");
+		itemStringList.add("		<description>[:en]" + productEnUSName + "[:zh]" + productZhCNName + "[:tw]"
+		        + productZhTWName + "</description>");
+		itemStringList.add("		<content:encoded><![CDATA[[:en]" + productEnUSName + "[:zh]" + productZhCNName + "[:tw]"
+		        + productZhTWName + "]]></content:encoded>");
 		itemStringList.add("		<excerpt:encoded><![CDATA[]]></excerpt:encoded>");
 		itemStringList.add("		<wp:post_id>" + postId + "</wp:post_id>");
 		itemStringList.add("        <wp:post_date>2014-05-17 20:57:20</wp:post_date>");
 		itemStringList.add("		<wp:post_date_gmt>2014-05-17 12:57:20</wp:post_date_gmt>");
 		itemStringList.add("		<wp:comment_status>closed</wp:comment_status>");
 		itemStringList.add("		<wp:ping_status>closed</wp:ping_status>");
-		itemStringList.add("		<wp:post_name>" + productEnUSName + "</wp:post_name>");
+		itemStringList.add("		<wp:post_name>[:en]" + productEnUSName + "[:zh]" + productZhCNName + "[:tw]"
+		        + productZhTWName + "</wp:post_name>");
 		itemStringList.add("		<wp:status>publish</wp:status>");
 		itemStringList.add("		<wp:post_parent>0</wp:post_parent>");
 		itemStringList.add("		<wp:menu_order>0</wp:menu_order>");
