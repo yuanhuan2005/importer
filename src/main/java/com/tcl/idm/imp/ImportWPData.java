@@ -13,9 +13,18 @@ import org.apache.commons.lang.StringUtils;
 
 public class ImportWPData
 {
-	//	private final static String GUANDONG_MENU_FILE = "F:/YuanHuan_Work/OmegaCloud/001_Projects/A2014B0002_关东餐馆网站项目/guandong_menu.txt";
-	private final static String GUANDONG_MENU_FILE = "D:/guandong_menu.txt";
-
+	/**
+	 * 构造单个产品的XML格式Item属性段
+	 * 
+	 * @param productCategory
+	 * @param productZhCNName
+	 * @param productZhTWName
+	 * @param productEnUSName
+	 * @param productPrice
+	 * @param postId
+	 * @param thumbnailId
+	 * @return
+	 */
 	private static List<String> genItemStringList(String productCategory, String productZhCNName,
 	        String productZhTWName, String productEnUSName, String productPrice, int postId, int thumbnailId)
 	{
@@ -126,10 +135,15 @@ public class ImportWPData
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException
 	{
+		// TODO begin 需要根据实际情况修改下面变量的值
+		int nextPostId = 122; // 下一个Post ID，在wp-posts表中查找最大ID，然后加1即可得到该数字。
+		int defaultThumbnailId = 73; // 默认图片的ID，在后台上传了该默认图片之后，即可在wp-posts表中找到其ID。
+		String outputPath = "D:/items.txt"; // 输出文件路径，XML格式，用于后台批量导入。
+		String menuTextFile = "D:/guandong_menu.txt"; // 输入的文件路径，text文本格式
+		// TODO end
+
 		String content = "";
-		String outputPath = "D:/items.txt";
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(
-		        ImportWPData.GUANDONG_MENU_FILE), "UTF-8"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(menuTextFile), "UTF-8"));
 		String[] contentSplit = null;
 		String productCategory = "";
 		String productZhCNName = "";
@@ -137,11 +151,6 @@ public class ImportWPData
 		String productEnUSName = "";
 		String productPrice = "";
 		String thumbnailIdStr = "";
-
-		// TODO begin 需要根据实际情况修改这两个数字
-		int nextPostId = 122;
-		int defaultThumbnailId = 73;
-		// TODO end
 
 		FileWriter fw = new FileWriter(outputPath, true);
 		PrintWriter pw = new PrintWriter(fw);
@@ -160,6 +169,7 @@ public class ImportWPData
 				continue;
 			}
 
+			// 解析文本行
 			contentSplit = content.split(",");
 			productZhCNName = contentSplit[2];
 			productZhTWName = contentSplit[1];
@@ -176,6 +186,8 @@ public class ImportWPData
 			catch (Exception e)
 			{
 			}
+
+			// 构造每个产品的Item段，并写入输出文件。
 			List<String> itemStringList = ImportWPData.genItemStringList(productCategory, productZhCNName,
 			        productZhTWName, productEnUSName, productPrice, nextPostId, defaultThumbnailId);
 			for (String itemString : itemStringList)
